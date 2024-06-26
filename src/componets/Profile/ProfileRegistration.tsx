@@ -52,12 +52,12 @@ const ProfileRegistration: React.FC = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSelectChange = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name as string]: value as string });
-  };
+  // const handleSelectChange = (
+  //   event: React.ChangeEvent<{ name?: string; value: unknown }>
+  // ) => {
+  //   const { name, value } = event.target;
+  //   setFormValues({ ...formValues, [name as string]: value as string });
+  // };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;

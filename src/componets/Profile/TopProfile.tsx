@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import {
   Box,
-  Button,
-  Checkbox,
   Grid,
-  FormControlLabel,
   TextField,
   Typography,
   Table,
@@ -185,7 +182,7 @@ const dummyProfiles = [
 ];
 
 const TopProfile: React.FC = () => {
-  const [profiles, setProfiles] = useState(dummyProfiles);
+  const [profiles] = useState(dummyProfiles);
   const [filters, setFilters] = useState({
     name: "",
     profession: "",
@@ -194,6 +191,7 @@ const TopProfile: React.FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event: unknown, newPage: number) => {
+    console.log(event);
     setPage(newPage);
   };
 
