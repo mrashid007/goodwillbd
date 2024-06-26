@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.active-link {
+  background-color: rgb(
+    156,
+    146,
+    224
+  ) !important; /* Example: MUI selected background color */
+}
