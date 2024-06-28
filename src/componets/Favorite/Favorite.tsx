@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
+  Box,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
-  SelectChangeEvent,
   Typography,
   Table,
   TableBody,
@@ -21,15 +14,9 @@ import {
   IconButton,
   TablePagination,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import PreviewIcon from "@mui/icons-material/Preview";
-
-interface SearchFilters {
-  keyword: string;
-  category: string;
-  inStockOnly: boolean;
-}
-
+// Dummy data with profile images
 const dummyProfiles = [
   {
     id: 1,
@@ -194,25 +181,12 @@ const dummyProfiles = [
   // Add more dummy profiles as needed
 ];
 
-const SearchProfile: React.FC = () => {
-  const [filters, setFilters] = useState<SearchFilters>({
-    keyword: "",
-    category: "",
-    inStockOnly: false,
+const Favorite: React.FC = () => {
+  const [profiles] = useState(dummyProfiles);
+  const [filters, setFilters] = useState({
+    name: "",
+    profession: "",
   });
-  const [showResults, setShowResults] = useState<boolean>(false);
-
-  const handleKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters({ ...filters, keyword: event.target.value });
-  };
-
-  const handleCategoryChange = (event: SelectChangeEvent<string>) => {
-    setFilters({ ...filters, category: event.target.value });
-  };
-
-  const handleInStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters({ ...filters, inStockOnly: event.target.checked });
-  };
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -227,115 +201,102 @@ const SearchProfile: React.FC = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const handleSearch = () => {
-    // Perform search logic with filters
-    console.log(filters);
-    setShowResults(true);
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilters({ ...filters, name: event.target.value });
   };
 
+  const handleProfessionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFilters({ ...filters, profession: event.target.value });
+  };
+
+  const filteredProfiles = profiles.filter(
+    (profile) =>
+      profile.name.toLowerCase().includes(filters.name.toLowerCase()) &&
+      profile.profession
+        .toLowerCase()
+        .includes(filters.profession.toLowerCase())
+  );
+
   return (
-    <div>
+    <Box sx={{ padding: 2 }}>
       <Typography variant="h5" gutterBottom>
-        Search Filters
+        Favorite Profiles
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <TextField
             fullWidth
-            label="Keyword"
+            label="Search by Name"
             variant="outlined"
-            value={filters.keyword}
-            onChange={handleKeywordChange}
+            value={filters.name}
+            onChange={handleNameChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel>Category</InputLabel>
-            <Select
-              value={filters.category}
-              onChange={handleCategoryChange}
-              label="Category"
-            >
-              <MenuItem value="">None</MenuItem>
-              <MenuItem value="electronics">Electronics</MenuItem>
-              <MenuItem value="clothing">Clothing</MenuItem>
-              <MenuItem value="books">Books</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={filters.inStockOnly}
-                onChange={handleInStockChange}
-              />
-            }
-            label="In Stock Only"
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="Search by Profession"
+            variant="outlined"
+            value={filters.profession}
+            onChange={handleProfessionChange}
           />
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary" onClick={handleSearch}>
-            Search
-          </Button>
         </Grid>
       </Grid>
-      {showResults && (
-        <div style={{ height: 400, marginTop: 20 }}>
-          <TableContainer component={Paper} sx={{ marginTop: 2 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Contact</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Profession</TableCell>
-                  <TableCell>Profile Image</TableCell>
-                  <TableCell>Action</TableCell>
+      <TableContainer component={Paper} sx={{ marginTop: 2 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Contact</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Profession</TableCell>
+              <TableCell>Profile Image</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredProfiles
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((profile) => (
+                <TableRow key={profile.id}>
+                  <TableCell>{profile.name}</TableCell>
+                  <TableCell>{profile.contact}</TableCell>
+                  <TableCell>{profile.email}</TableCell>
+                  <TableCell>{profile.profession}</TableCell>
+                  <TableCell>
+                    <img
+                      src={profile.profileImage}
+                      alt={profile.name}
+                      style={{ width: 50, borderRadius: "50%" }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      //   onClick={() => handleDeleteProfile(profile.id)}
+                      aria-label="delete"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {dummyProfiles
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((profile) => (
-                    <TableRow key={profile.id}>
-                      <TableCell>{profile.name}</TableCell>
-                      <TableCell>{profile.contact}</TableCell>
-                      <TableCell>{profile.email}</TableCell>
-                      <TableCell>{profile.profession}</TableCell>
-                      <TableCell>
-                        <img
-                          src={profile.profileImage}
-                          alt={profile.name}
-                          style={{ width: 50, borderRadius: "50%" }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <IconButton
-                          //   onClick={() => handleDeleteProfile(profile.id)}
-                          aria-label="delete"
-                        >
-                          <PreviewIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={dummyProfiles.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </div>
-      )}
-    </div>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredProfiles.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Box>
   );
 };
 
-export default SearchProfile;
+export default Favorite;
