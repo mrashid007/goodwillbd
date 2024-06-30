@@ -1,5 +1,6 @@
-import React from "react";
 import { Box, Grid, Paper, Typography, Avatar } from "@mui/material";
+import ProfilePercentage from "../../components/Profile/ProfilePercentage";
+import * as React from "react";
 
 interface ProfileDetailProps {
   profileData: {
@@ -32,21 +33,33 @@ const ProfileDetail: React.FC<ProfileDetailProps> = ({ profileData }) => {
       elevation={3}
       sx={{ padding: 4, maxWidth: 900, margin: "20px auto" }}
     >
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Avatar
-          src={profileData.profilePicturePreview as string}
-          alt="Profile"
-          sx={{ width: 150, height: 150, marginBottom: 2 }}
-        />
-        <Typography variant="h4" gutterBottom>
-          {profileData.name}
-        </Typography>
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={8}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+          >
+            <Avatar
+              src={profileData.profilePicturePreview as string}
+              alt="Profile"
+              sx={{ width: 150, height: 150, marginBottom: 2 }}
+            />
+            <Typography variant="h4" gutterBottom>
+              {profileData.name}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Box p={3} width="100%">
+            <Typography variant="h6" gutterBottom>
+              Profile Completed
+            </Typography>
+            <ProfilePercentage />
+          </Box>
+        </Grid>
+      </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1">

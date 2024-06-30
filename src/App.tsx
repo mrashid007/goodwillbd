@@ -1,8 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Box, CssBaseline, AppBar, Toolbar, Typography } from "@mui/material";
-import Menubar from "./componets/LeftMenu/Menubar";
-import Menulink from "./componets/LeftMenu/Menulink";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+//import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Menubar from "./components/LeftMenu/Menubar";
+import Menulink from "./components/LeftMenu/Menulink";
 
 const drawerWidth = 240;
 
@@ -28,7 +31,7 @@ const App: React.FC = () => {
         <Menubar />
         <Box
           component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+          sx={{ flexGrow: 1, bgcolor: "background.default", p: 1 }}
         >
           <Toolbar />
           <Menulink />

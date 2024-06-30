@@ -1,34 +1,38 @@
 import { Route, Routes } from "react-router-dom";
-import SignIn from "../SIgnin/SignIn";
-import UserProfile from "../Profile/userProfile";
-import SearchProfile from "../Search/SearchProfile";
-import ChangePassword from "../Profile/ChangePassword";
-import TopProfile from "../Profile/TopProfile";
-import ProfileRegistration from "../Profile/ProfileRegistration";
-import Favorite from "./../Favorite/Favorite";
-import SignUp from "../Signup/SignUp";
+import SignIn from "../../pages/Login/SignIn";
+import UserProfile from "../../pages/UserProfile/UserProfile";
+import SearchProfile from "../../pages/Search/SearchProfile";
+import ChangePassword from "../../pages/UserPassword/ChangePassword";
+import TopProfile from "../../pages/Profile/TopProfile";
+//import ProfileRegistration from "../../pages/Profile/ProfileRegistration";
+
+import Favorite from "../Favorite/Favorite";
+import SignUp from "../../pages/Signup/SignUp";
+import femal_avatar from "../../assets/female_avatar.png";
+import ProfileRegistration from "../../pages/Profile/ProfileRegistration";
+import EditProfile from "../../pages/UserProfile/EditProfile";
 
 const profileData = {
   lookingFor: "Partner",
-  name: "John Doe",
-  religion: "Christianity",
+  name: "Jahin Siddika",
+  religion: "Islam",
   casteSocialOrder: "N/A",
   education: "Masters in Computer Science",
   profession: "Software Engineer",
   dateOfBirth: "1990-01-01",
   fatherName: "Michael Doe",
-  motherName: "Jane Doe",
-  country: "USA",
-  division: "California",
-  district: "Los Angeles",
-  upazilaCity: "Los Angeles",
+  motherName: "Safia Khatun",
+  country: "BD",
+  division: "Dhaka",
+  district: "Dhaka",
+  upazilaCity: "Dhaka",
   village: "N/A",
   location: "123 Main St",
   residencyStatus: "Citizen",
   email: "john.doe@example.com",
   phoneNo: "1234567890",
   guardianPhoneNo: "0987654321",
-  profilePicturePreview: "https://via.placeholder.com/400",
+  profilePicturePreview: femal_avatar,
 };
 
 const Home: React.FC = () => <div>Home</div>;
@@ -44,6 +48,10 @@ const Menulink: React.FC = () => {
       <Route
         path="/profile"
         element={<UserProfile profileData={profileData} />}
+      />
+      <Route
+        path="/edit-profile"
+        element={<EditProfile profileData={profileData} />}
       />
       <Route path="/search" element={<SearchProfile />} />
       <Route path="/appointment" element={<Appointment />} />

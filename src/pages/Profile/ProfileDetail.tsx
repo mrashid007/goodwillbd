@@ -1,30 +1,6 @@
 import React from "react";
 import { Grid, Paper, Typography } from "@mui/material";
-
-interface ProfileDetailProps {
-  profileData: {
-    lookingFor: string;
-    name: string;
-    religion: string;
-    casteSocialOrder: string;
-    education: string;
-    profession: string;
-    dateOfBirth: string;
-    fatherName: string;
-    motherName: string;
-    country: string;
-    division: string;
-    district: string;
-    upazilaCity: string;
-    village: string;
-    location: string;
-    residencyStatus: string;
-    email: string;
-    phoneNo: string;
-    guardianPhoneNo: string;
-    profilePicturePreview: string | ArrayBuffer | null;
-  };
-}
+import ProfileDetailProps from "../../components/Profile/userProfileProp";
 
 const ProfileDetail: React.FC<ProfileDetailProps> = ({ profileData }) => {
   return (

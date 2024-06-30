@@ -52,6 +52,7 @@ const Menubar: React.FC = () => {
         {[
           { text: "Registration", path: "/registration" },
           { text: "My Profile", path: "/profile" },
+          { text: "Edit Profile", path: "/edit-profile" },
           { text: "Search", path: "/search" },
           { text: "Appointment", path: "/appointment" },
         ].map(({ text, path }, index) => (
