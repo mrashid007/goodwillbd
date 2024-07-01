@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
+  Divider,
   FormControl,
   FormControlLabel,
   Grid,
@@ -15,6 +17,18 @@ import {
   Typography,
 } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import SelectLookingFor from "../../components/dropdown/LookingFor/SelectLookingFor";
+import { SelectLookingForOptions } from "../../components/dropdown/LookingFor/SelectLookingForOptions";
+import SelectProfileCreatedBy from "../../components/dropdown/ProfileCreatedBy/SelectProfileCreatedBy";
+import { SelectProfileCreatedByOptions } from "../../components/dropdown/ProfileCreatedBy/SelectProfileCreatedByOptions";
+import { SelectProfessionOptions } from "../../components/dropdown/Profession/SelectProfessionOptions";
+import SelectProfession from "../../components/dropdown/Profession/SelectProfession";
+import { SelectReligionOptions } from "../../components/dropdown/Religion/SelectReligionOptions";
+import SelectReligion from "../../components/dropdown/Religion/SelectReligion";
+import { SelectCountryOptions } from "../../components/dropdown/Country/SelectCountryOptions";
+import SelectCountry from "../../components/dropdown/Country/SelectCountry";
+// import SelectLookingFor from "../../components/dropdown/LookingFor/SelectLookingFor";
+// import { SelectLookingForOptions } from "../../components/dropdown/LookingFor/SelectLookingForOptions";
 
 const ProfileRegistration: React.FC = () => {
   const [formValues, setFormValues] = useState({
@@ -22,7 +36,6 @@ const ProfileRegistration: React.FC = () => {
     name: "",
     religion: "",
     casteSocialOrder: "",
-    education: "",
     profession: "",
     dateOfBirth: "",
     fatherName: "",
@@ -52,12 +65,54 @@ const ProfileRegistration: React.FC = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  // const handleSelectChange = (
-  //   event: React.ChangeEvent<{ name?: string; value: unknown }>
-  // ) => {
-  //   const { name, value } = event.target;
-  //   setFormValues({ ...formValues, [name as string]: value as string });
-  // };
+  const [profileCreateBy, setProfileCreateBy] =
+    useState<SelectProfileCreatedByOptions>(SelectProfileCreatedByOptions.Self);
+
+  const handleProfileCreatedBySelectChange = (
+    value: SelectProfileCreatedByOptions
+  ) => {
+    setProfileCreateBy(value);
+  };
+
+  const [lookingFor, setLookingFor] = useState<SelectLookingForOptions>(
+    SelectLookingForOptions.Select
+  );
+
+  const handlelookingForSelectChange = (value: SelectLookingForOptions) => {
+    setLookingFor(value);
+  };
+
+  const [profession, setProfession] = useState<SelectProfessionOptions>(
+    SelectProfessionOptions.Select
+  );
+
+  const handleProfessionSelectChange = (value: SelectProfessionOptions) => {
+    setProfession(value);
+  };
+
+  const [religion, setReligion] = useState<SelectReligionOptions>(
+    SelectReligionOptions.Select
+  );
+
+  const handleReligionSelectChange = (value: SelectReligionOptions) => {
+    setReligion(value);
+  };
+
+  const [nationality, setNationality] = useState<SelectCountryOptions>(
+    SelectCountryOptions.Bangladesh
+  );
+
+  const handleNationalitySelectChange = (value: SelectCountryOptions) => {
+    setNationality(value);
+  };
+
+  const [presentCountry, setSetPresentCountry] = useState<SelectCountryOptions>(
+    SelectCountryOptions.Bangladesh
+  );
+
+  const handlePresentCountrySelectChange = (value: SelectCountryOptions) => {
+    setSetPresentCountry(value);
+  };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -102,13 +157,15 @@ const ProfileRegistration: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Looking For"
-                name="lookingFor"
-                value={formValues.lookingFor}
-                onChange={handleInputChange}
-                required
+              <SelectProfileCreatedBy
+                value={profileCreateBy}
+                onChange={handleProfileCreatedBySelectChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <SelectLookingFor
+                value={lookingFor}
+                onChange={handlelookingForSelectChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -122,15 +179,26 @@ const ProfileRegistration: React.FC = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <SelectProfession
+                value={profession}
+                onChange={handleProfessionSelectChange}
+              />
+              {/* <TextField
                 fullWidth
-                label="Religion"
-                name="religion"
-                value={formValues.religion}
-                onChange={handleInputChange}
+                label="Profession"
+                name="profession"
+                value={profession}
+                onChange={handleProfessionSelectChange}
                 required
+              /> */}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <SelectReligion
+                value={religion}
+                onChange={handleReligionSelectChange}
               />
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel>Caste-Social Order</InputLabel>
@@ -158,26 +226,7 @@ const ProfileRegistration: React.FC = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Education"
-                name="education"
-                value={formValues.education}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Profession"
-                name="profession"
-                value={formValues.profession}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
@@ -211,13 +260,33 @@ const ProfileRegistration: React.FC = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                value={formValues.country}
-                onChange={handleInputChange}
-                required
+              <SelectCountry
+                value={nationality}
+                onChange={handleNationalitySelectChange}
+              />
+            </Grid>
+          </Grid>
+          <Divider
+            textAlign="center"
+            variant="middle"
+            sx={{
+              margin: "20px",
+              padding: "10px 0",
+            }}
+          >
+            <Chip
+              label="Present Address"
+              size="medium"
+              sx={{
+                backgroundColor: "#32a89e",
+              }}
+            />
+          </Divider>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <SelectCountry
+                value={presentCountry}
+                onChange={handlePresentCountrySelectChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>

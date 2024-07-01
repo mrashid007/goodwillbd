@@ -11,10 +11,11 @@ import SignUp from "../../pages/Signup/SignUp";
 import femal_avatar from "../../assets/female_avatar.png";
 import ProfileRegistration from "../../pages/Profile/ProfileRegistration";
 import EditProfile from "../../pages/UserProfile/EditProfile";
+import UserChoice from "./../../pages/UserChoice/UserChoice";
 
 const profileData = {
   lookingFor: "Partner",
-  name: "Jahin Siddika",
+  name: "Zahin Siddika & Bushra Jannat",
   religion: "Islam",
   casteSocialOrder: "N/A",
   education: "Masters in Computer Science",
@@ -52,6 +53,10 @@ const Menulink: React.FC = () => {
       <Route
         path="/edit-profile"
         element={<EditProfile profileData={profileData} />}
+      />
+      <Route
+        path="/my-choice"
+        element={<UserChoice profileData={profileData} />}
       />
       <Route path="/search" element={<SearchProfile />} />
       <Route path="/appointment" element={<Appointment />} />

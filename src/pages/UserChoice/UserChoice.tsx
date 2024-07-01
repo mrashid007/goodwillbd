@@ -21,12 +21,13 @@ import TabPanel from "@mui/lab/TabPanel";
 import React, { useState } from "react";
 import ProfileDetailProps from "../../components/Profile/userProfileProp";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import EducationalQualificationForm from "./EducationalQualificationForm";
-import FamilyMemberForm from "./FamilyMemberForm";
-import PaternalMemberForm from "./PaternalMemberForm";
-import MaternalMemberForm from "./MaternalMemberForm";
+import ChoiceEducationalQualificationForm from "./ChoiceEducationalQualificationForm";
+import ChoiceProfessionForm from "./ChoiceProfessionForm";
+import ChoiceRegionForm from "./ChoiceRegionForm";
+// import EducationalQualificationForm from "./EducationalQualificationForm";
+// import FamilyMemberForm from "./FamilyMemberForm";
 
-const EditProfile: React.FC<ProfileDetailProps> = ({ profileData }) => {
+const UserChoice: React.FC<ProfileDetailProps> = ({ profileData }) => {
   console.log(profileData.lookingFor);
 
   const [value, setValue] = React.useState("1");
@@ -108,17 +109,16 @@ const EditProfile: React.FC<ProfileDetailProps> = ({ profileData }) => {
       style={{ padding: 20, maxWidth: 800, margin: "20px auto" }}
     >
       <Typography variant="subtitle1" gutterBottom>
-        Profile Info Modify
+        My Preferrence / My Choice
       </Typography>
       <Box sx={{ width: "100%", typography: "body1" }}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList onChange={handleChange} aria-label="lab API tabs example">
               <Tab label="Basic Info" value="1" />
-              <Tab label="Educational Info" value="2" />
-              <Tab label="Family Member" value="3" />
-              <Tab label="Paternal Info" value="4" />
-              <Tab label="Maternal Info" value="5" />
+              <Tab label="Education" value="2" />
+              <Tab label="Profession" value="3" />
+              <Tab label="Region / District" value="4" />
             </TabList>
           </Box>
           <TabPanel value="1">
@@ -436,19 +436,15 @@ const EditProfile: React.FC<ProfileDetailProps> = ({ profileData }) => {
           </TabPanel>
           <TabPanel value="2">
             <CssBaseline />
-            <EducationalQualificationForm />
+            <ChoiceEducationalQualificationForm />
           </TabPanel>
           <TabPanel value="3">
             <CssBaseline />
-            <FamilyMemberForm />
+            <ChoiceProfessionForm />
           </TabPanel>
           <TabPanel value="4">
             <CssBaseline />
-            <PaternalMemberForm />
-          </TabPanel>
-          <TabPanel value="5">
-            <CssBaseline />
-            <MaternalMemberForm />
+            <ChoiceRegionForm />
           </TabPanel>
         </TabContext>
       </Box>
@@ -456,4 +452,4 @@ const EditProfile: React.FC<ProfileDetailProps> = ({ profileData }) => {
   );
 };
 
-export default EditProfile;
+export default UserChoice;
